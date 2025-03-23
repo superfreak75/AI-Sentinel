@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Sentinel: Neurale Ruimteverdediging</title>
+  
+  <!-- Social Media Meta Tags -->
+  <meta property="og:title" content="AI Sentinel: Neurale Ruimteverdediging">
+  <meta property="og:description" content="Verdedig het universum tegen rogue AI-systemen in dit verslavende ruimteschietspel. Gemaakt met AI. #AIGaming #AIVsAI">
+  <meta property="og:image" content="https://via.placeholder.com/1200x630/111/fff?text=AI+Sentinel:+Neurale+Ruimteverdediging">
+  <meta property="og:url" content="https://yourdomain.com/ai-sentinel">
+  <meta name="twitter:card" content="summary_large_image">
+  
+  <!-- Supabase JavaScript Client --> 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #111;
+      color: #0cf;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      overflow: hidden;
+    }
+    canvas {
+      border: 2px solid #0cf;
+      border-radius: 8px;
+      box-shadow: 0 0 20px #0cf;
+    }
+    h1 {
+      margin-bottom: 10px;
+      text-shadow: 0 0 10px #0cf;
+      letter-spacing: 2px;
+    }
+    .game-container {
+      position: relative;
+    }
+    .ui-overlay {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+    .share-btn {
+      margin-top: 5px;
+      background: #1DA1F2;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+    }
+    .share-btn:hover {
+      background: #0d8bd9;
+    }
+    .share-btn i {
+      margin-right: 5px;
+    }
+    footer {
+      margin-top: 20px;
+      font-size: 12px;
+      text-align: center;
+    }
+  </style>
+  
+  <!-- Twitter Icon -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+  <h1>AI Sentinel: Neurale Ruimteverdediging</h1>
+  
+  <div class="game-container">
+    <div class="ui-overlay">
+      <button class="share-btn" onclick="shareOnX()">
+        <i class="fab fa-twitter"></i> Deel op X
+      </button>
+      
+      <!-- Score display buiten het canvas -->
+      <div id="external-score" style="background: rgba(0,0,0,0.7); margin-top: 10px; padding: 5px 10px; border-radius: 4px; font-size: 14px; border: 1px solid #0cf;">
+        Score: <span id="score-display">0</span> | Level: <span id="level-display">1</span>
+      </div>
+    </div>
+    <div id="game-canvas"></div>
+  </div>
+  
+  <footer>
+    &copy; 2024 | Gebouwd met AI | #AIGaming #AIVsAI
+  </footer>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+  <!-- Laad de configuratie VOOR het game script -->
+  <script src="config.js"></script>
+  <script src="game.js"></script>
+  
+  <script>
+    // Zorg ervoor dat score en level altijd beschikbaar zijn, ook als er nog niets aan window is toegewezen
+    if (typeof window.score === 'undefined') window.score = 0;
+    if (typeof window.level === 'undefined') window.level = 1;
+    
+    function shareOnX() {
+      // Ververs de waarden direct vanuit het spel (voor de zekerheid)
+      if (typeof updateUIDisplay === 'function') {
+        updateUIDisplay();  // Roep de updateUIDisplay functie aan als deze bestaat
+      }
+      
+      const currentScore = window.score || 0;  // Fallback naar 0 als score niet bestaat
+      const currentLevel = window.level || 1;  // Fallback naar 1 als level niet bestaat
+      console.log("Sharing - Score:", currentScore, "Level:", currentLevel, "Direct game score:", window.score, "Direct game level:", window.level);
+      
+      const text = "Ik vecht tegen rogue AI in AI Sentinel: Neurale Ruimteverdediging! Mijn score: " + currentScore + " punten, Level: " + currentLevel + "! Speel het zelf op: ";
+      const url = window.location.href;
+      const hashtags = "AIGaming,AIVsAI,GameDev";
+      window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}&hashtags=${encodeURIComponent(hashtags)}`, '_blank');
+    }
+  </script>
+</body>
+</html>
